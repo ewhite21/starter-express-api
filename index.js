@@ -18,15 +18,20 @@ const server = http.createServer(async (req, res) => {
         req.on('end', () => {
             // Parse the posted data
             const parsedData = querystring.parse(postData);
-
-            // Print the result
-            console.log('Posted parameters:', parsedData);
-
-            // Set the response headers
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-
-            // Respond to the client
-            res.end(JSON.stringify(parsedData));
+                            try {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                axios.post('https://twprp.loca.lt/tweet', {
+                  image: parsedData.image
+                })
+                .then(function (response) {
+                    res.end(JSON.stringify(response.data));
+                })
+                .catch(function (error) {
+                  res.end(JSON.stringify({'success' : false}));
+                });
+                } catch (error) {
+                    res.end(JSON.stringify({'success' : false, 'message' : 'There is some issue.'}));
+                }
         });
                 // const parsedUrl = url.parse(req.url, true);
                 // const queryParams = parsedUrl.query;
