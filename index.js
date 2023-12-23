@@ -6,12 +6,30 @@ const axios = require('axios');
 axios.defaults.headers.common['x-api-key'] = 'test1234';
 
 const server = http.createServer(async (req, res) => {
-    if (req.url.startsWith('/upload') && req.method === 'GET') {
+    if (req.url.startsWith('/upload') && req.method === 'POST') {
         try {
-                const parsedUrl = url.parse(req.url, true);
-                const queryParams = parsedUrl.query;
-                const b64img = queryParams.image;
-                res.end(b64img);
+            req.on('data', (chunk) => {
+            postData += chunk.toString();
+        });
+
+        // Listen for the end event to process the collected data
+        req.on('end', () => {
+            // Parse the posted data
+            const parsedData = querystring.parse(postData);
+
+            // Print the result
+            console.log('Posted parameters:', parsedData);
+
+            // Set the response headers
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+
+            // Respond to the client
+            res.end('Posted parameters received');
+        });
+                // const parsedUrl = url.parse(req.url, true);
+                // const queryParams = parsedUrl.query;
+                // const b64img = queryParams.image;
+                // res.end(b64img);
                 // try {
                 //     res.writeHead(200, { 'Content-Type': 'application/json' });
                 // axios.post('https://twprp.loca.lt/tweet', {
