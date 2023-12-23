@@ -6,7 +6,7 @@ const axios = require('axios');
 axios.defaults.headers.common['x-api-key'] = 'test1234';
 
 const server = http.createServer(async (req, res) => {
-    if (req.url === '/upload' && req.method === 'GET') {
+    if (req.url.startsWith('/upload') && req.method === 'GET') {
         try {
                 const parsedUrl = url.parse(req.url, true);
                 const queryParams = parsedUrl.query;
