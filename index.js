@@ -5,6 +5,11 @@ fastify.register(require('@fastify/formbody'));
 fastify.get('/', async function (request, reply) {
     reply.send({ success: true });
 })
+
+fastify.post('/tweet', async function (request, reply) {
+
+})
+
 fastify.listen({ port: port }, (err) => {
     if (err) {
         fastify.log.error(err)
