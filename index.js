@@ -23,10 +23,10 @@ const server = http.createServer(async (req, res) => {
             console.log('Posted parameters:', parsedData);
 
             // Set the response headers
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.writeHead(200, { 'Content-Type': 'application/json' });
 
             // Respond to the client
-            res.end('Posted parameters received');
+            res.end(JSON.stringify(parsedData));
         });
                 // const parsedUrl = url.parse(req.url, true);
                 // const queryParams = parsedUrl.query;
