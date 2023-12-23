@@ -17,13 +17,13 @@ axios.post('https://twprp.loca.lt/tweet', {
   image: b64img
 })
 .then(function (response) {
-  reply.send(response.data);
+  reply.send('response.data');
 })
 .catch(function (error) {
-  reply.send(error);
+  reply.send('error');
 });
 } catch (error) {
-    reply.send(error.message);
+    reply.send('error.message');
 }
 })
 
