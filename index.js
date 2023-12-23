@@ -5,8 +5,10 @@ const axios = require('axios');
 axios.defaults.headers.common['x-api-key'] = 'test1234';
 
 const server = http.createServer(async (req, res) => {
-    if (req.url === '/get-json-response' && req.method === 'GET') {
+    if (req.url === '/upload' && req.method === 'GET') {
         try {
+                const parsedUrl = url.parse(req.url, true);
+                const queryParams = parsedUrl.query;
             // Make a request using Axios to some API (replace with your API endpoint)
             const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
 
@@ -14,7 +16,7 @@ const server = http.createServer(async (req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
 
             // Send the JSON response received from Axios to the client
-            res.end(JSON.stringify(response.data));
+            res.end(JSON.stringify(queryParams));
         } catch (error) {
             console.error('Error:', error.message);
             res.writeHead(500, { 'Content-Type': 'application/json' });
