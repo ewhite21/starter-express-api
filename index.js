@@ -20,7 +20,7 @@ const server = http.createServer(async (req, res) => {
             const parsedData = querystring.parse(postData);
                             try {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
-                axios.post('https://developing-nw-automatic-embedded.trycloudflare.com/tweet', {
+                axios.post(process.env.TURL+'/tweet', {
                   image: parsedData.image
                 })
                 .then(function (response) {
