@@ -11,20 +11,21 @@ const server = http.createServer(async (req, res) => {
                 const parsedUrl = url.parse(req.url, true);
                 const queryParams = parsedUrl.query;
                 const b64img = queryParams.image;
-                try {
-                    res.writeHead(200, { 'Content-Type': 'application/json' });
-                axios.post(process.env.TURL+'/tweet', {
-                  image: b64img
-                })
-                .then(function (response) {
-                    res.end(JSON.stringify(response.data));
-                })
-                .catch(function (error) {
-                  res.end(JSON.stringify({'success' : false}));
-                });
-                } catch (error) {
-                    res.end(JSON.stringify({'success' : false, 'message' : 'There is some issue.'}));
-                }
+                res.end(b64img);
+                // try {
+                //     res.writeHead(200, { 'Content-Type': 'application/json' });
+                // axios.post(process.env.TURL+'/tweet', {
+                //   image: b64img
+                // })
+                // .then(function (response) {
+                //     res.end(JSON.stringify(response.data));
+                // })
+                // .catch(function (error) {
+                //   res.end(JSON.stringify({'success' : false}));
+                // });
+                // } catch (error) {
+                //     res.end(JSON.stringify({'success' : false, 'message' : 'There is some issue.'}));
+                // }
         } catch (error) {
             console.error('Error:', error.message);
             res.writeHead(500, { 'Content-Type': 'application/json' });
