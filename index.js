@@ -8,6 +8,7 @@ axios.defaults.headers.common['x-api-key'] = 'test1234';
 const server = http.createServer(async (req, res) => {
     if (req.url.startsWith('/upload') && req.method === 'POST') {
         try {
+            let postData = '';
             req.on('data', (chunk) => {
             postData += chunk.toString();
         });
